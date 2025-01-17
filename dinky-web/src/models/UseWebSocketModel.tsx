@@ -119,9 +119,9 @@ export default () => {
         reconnect();
       } else {
         const currentTime = new Date().getTime();
-        if (currentTime - lastPongTimeRef.current > 15) {
+        if (currentTime - lastPongTimeRef.current > 15000) {
           reconnect();
-        } else if (currentTime - lastPongTimeRef.current > 5) {
+        } else if (currentTime - lastPongTimeRef.current > 5000) {
           const token = JSON.parse(localStorage.getItem(TOKEN_KEY) ?? '{}')?.tokenValue;
           ws.current.send(JSON.stringify({ token, type: 'PING' }));
         }
