@@ -59,7 +59,7 @@ export default () => {
   const ws = useRef<WebSocket>();
 
   const reconnect = () => {
-    if (ws.current && ws.current.readyState === WebSocket.CLOSED) {
+    if (ws.current && ws.current.readyState === WebSocket.OPEN) {
       ws.current.close();
     }
     ws.current = new WebSocket(wsUrl);
@@ -119,9 +119,9 @@ export default () => {
         reconnect();
       } else {
         const currentTime = new Date().getTime();
-        if (currentTime - lastPongTimeRef.current > 15000) {
+        if (currentTime - lastPongTimeRef.current > 15) {
           reconnect();
-        } else if (currentTime - lastPongTimeRef.current > 5000) {
+        } else if (currentTime - lastPongTimeRef.current > 5) {
           const token = JSON.parse(localStorage.getItem(TOKEN_KEY) ?? '{}')?.tokenValue;
           ws.current.send(JSON.stringify({ token, type: 'PING' }));
         }
