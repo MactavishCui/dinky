@@ -19,7 +19,7 @@
 
 import { InitContextMenuPosition } from '@/types/Public/state.d';
 import { PushDolphinParams } from '@/types/Studio/data';
-import { CateLogState, ProjectState } from '@/types/Studio/state.d';
+import { CatalogTreeState, CateLogState, ProjectState } from '@/types/Studio/state.d';
 
 export const InitProjectState: ProjectState = {
   rightActiveKey: '',
@@ -68,4 +68,14 @@ export const InitCateLogState: CateLogState = {
   rowData: {},
   loading: false,
   columnData: []
+};
+
+export const InitCatalogTreeState: CatalogTreeState = {
+  rightActiveKey: '',
+  contextMenuPosition: InitContextMenuPosition,
+  contextMenuOpen: false,
+  menuItems: [],
+  isLeaf: false,
+  rightClickedNode: {},
+  value: {}
 };

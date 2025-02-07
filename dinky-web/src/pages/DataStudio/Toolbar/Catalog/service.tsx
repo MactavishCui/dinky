@@ -20,6 +20,8 @@
 import { postAll } from '@/services/api';
 import { API_CONSTANTS } from '@/services/endpoints';
 import { StudioMetaStoreParam } from '@/pages/DataStudio/Toolbar/Catalog/data';
+import { handleOption } from "@/services/BusinessCrud";
+import { l } from "@/utils/intl";
 
 export async function getMSSchemaInfo(params: StudioMetaStoreParam) {
   return (await postAll(API_CONSTANTS.STUDIO_GET_MSSCHEMA_INFO, params)).data;
@@ -29,4 +31,7 @@ export async function getMSCatalogs(params: StudioMetaStoreParam) {
 }
 export async function getMSColumns(params: StudioMetaStoreParam) {
   return (await postAll(API_CONSTANTS.STUDIO_GET_MSCOLUMNS, params)).data;
+}
+export async function dropMSTable(params: StudioMetaStoreParam) {
+  return (await handleOption(API_CONSTANTS.STUDIO_DROP_MSTABLE, l('right.menu.delete'), params))
 }
