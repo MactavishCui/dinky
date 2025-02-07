@@ -51,9 +51,9 @@ COMMENT ON COLUMN public.dinky_approval.reviewer_comment IS 'reviewer comment';
 COMMENT ON COLUMN public.dinky_approval.create_time IS 'create time';
 COMMENT ON COLUMN public.dinky_approval.update_tIme IS 'update time';
 
-CREATE UNIQUE INDEX IF NOT EXISTS task_id_current_version_idx ON public.dinky_approval (task_id, current_task_version);
-CREATE UNIQUE INDEX IF NOT EXISTS tenant_id_submitter_union_idx ON public.dinky_approval (submitter, tenant_id);
-CREATE UNIQUE INDEX IF NOT EXISTS tenant_id_reviewer_union_idx ON public.dinky_approval (reviewer, tenant_id);
+CREATE INDEX IF NOT EXISTS task_id_current_version_idx ON public.dinky_approval (task_id, current_task_version);
+CREATE INDEX IF NOT EXISTS tenant_id_submitter_union_idx ON public.dinky_approval (submitter, tenant_id);
+CREATE INDEX IF NOT EXISTS tenant_id_reviewer_union_idx ON public.dinky_approval (reviewer, tenant_id);
 
 CREATE OR REPLACE TRIGGER set_update_time_dinky_approval
     BEFORE UPDATE
@@ -79,3 +79,25 @@ insert into public.dinky_sys_menu (id, parent_id, name, path, component, perms, 
                               order_num, create_time, update_time, note)
 values (178, 177, '编辑', '/settings/globalsetting/approval/edit', null, 'settings:globalsetting:approval:edit',
         'EditOutlined', 'F', 0, 171, '2024-12-30 23:45:30', '2024-12-30 23:45:30', null);
+
+-- ----------------------------
+-- Table structure for dinky_approval
+-- ----------------------------
+
+CREATE TABLE IF NOT EXISTS public.dinky_lineage
+(
+    id                    SERIAL PRIMARY KEY          NOT NULL,
+    task_id               INT                         NOT NULL,
+    source_table_id       VARCHAR(255)                NOT NULL,
+    target_table_id       VARCHAR(255)                NOT NULL,
+    column_name           VARCHAR(255)                NOT NULL
+);
+
+COMMENT ON COLUMN public.dinky_lineage.id IS 'id';
+COMMENT ON COLUMN public.dinky_lineage.task_id IS 'task id';
+COMMENT ON COLUMN public.dinky_lineage.source_table_id IS 'source table id';
+COMMENT ON COLUMN public.dinky_lineage.target_table_id IS 'target table id';
+COMMENT ON COLUMN public.dinky_lineage.column_name IS 'column name';
+
+CREATE INDEX IF NOT EXISTS source_table_id_idx ON public.dinky_lineage (source_table_id);
+CREATE INDEX IF NOT EXISTS target_table_id_idx ON public.dinky_lineage (target_table_id);

@@ -39,3 +39,15 @@ values (178, 177, '编辑', '/settings/globalsetting/approval/edit', null, 'sett
         'EditOutlined', 'F', 0, 171, '2024-12-30 23:45:30', '2024-12-30 23:45:30', null);
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+--- ----------------------------
+-- Table structure for dinky_lineage
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS dinky_lineage
+(
+    `id`                    int(11)     NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `task_id`               int(11)     NOT NULL COMMENT 'task id',
+    `source_table_id`       varchar(50) NOT NULL COMMENT 'source table id',
+    `target_table_id`       varchar(50) NOT NULL COMMENT 'target table id',
+    `column_name`           varchar(50) NOT NULL COMMENT 'column name'
+) ENGINE = InnoDB ROW_FORMAT = Dynamic;

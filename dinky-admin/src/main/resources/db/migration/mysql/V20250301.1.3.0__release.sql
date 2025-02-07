@@ -72,3 +72,23 @@ values (178, 177, '编辑', '/settings/globalsetting/approval/edit', null, 'sett
 
 SET
     FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- Table structure for dinky_lineage
+-- ----------------------------
+
+CREATE TABLE IF NOT EXISTS `dinky_lineage`
+(
+    `id`                    int(11)                                                      NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `task_id`               int(11)                                                      NOT NULL COMMENT 'task id',
+    `source_table_id`       varchar(50) CHARACTER SET Utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'source table id',
+    `target_table_id`       varchar(50) CHARACTER SET Utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'target table id',
+    `column_name`           varchar(50) CHARACTER SET Utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'column name',
+    PRIMARY KEY (`id`) USING BTREE,
+    INDEX `source_table_id_idx` (`source_table_id`) USING BTREE,
+    INDEX `target_table_id_idx` (`target_table_id`) USING BTREE
+) ENGINE = INNODB
+  AUTO_INCREMENT = 2
+  CHARACTER SET = Utf8mb4
+  COLLATE = utf8mb4_general_ci COMMENT = 'lineage'
+  ROW_FORMAT = Dynamic;
